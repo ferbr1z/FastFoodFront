@@ -26,6 +26,17 @@ export const reducerFunction = (state, action) => {
                 ...state,
                 productos: state.productos.filter(producto => producto.id !== action.payload)
             };
+
+        case 'getAllPedidos':
+            return {
+                ...state,
+                pedidos: action.payload.data,
+                page: action.payload.page,
+                recordsPerPage: action.payload.recordsPerPage,
+                totalRecords: action.payload.totalRecords,
+                totalPages: action.payload.totalPages,
+            };
+
         case 'showModal':
             return {
                 ...state,

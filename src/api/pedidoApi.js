@@ -1,6 +1,6 @@
 import { api } from "./api";
 
-export class ProductoApi {
+export class PedidoApi {
   static uri = "/pedido";
 
   static async create(data) {
