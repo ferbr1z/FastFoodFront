@@ -40,7 +40,7 @@ export const Nav = () => {
           Home
         </Navbar.Link>
         <Navbar.Link href="/productos/1" className="rounded-lg">Productos</Navbar.Link>
-        <Navbar.Link href="#" className="rounded-lg">Services</Navbar.Link>
+        <Navbar.Link href="/pedidos/1" className="rounded-lg">Pedidos</Navbar.Link>
         <Navbar.Link href="#" className="rounded-lg">Pricing</Navbar.Link>
         <Navbar.Link href="#" className="rounded-lg">Contact</Navbar.Link>
       </Navbar.Collapse>

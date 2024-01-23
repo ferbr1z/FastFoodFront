@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Nav } from './components/Nav.jsx'
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { ProductosList } from './components/productos/ProductosList.jsx'
+import { ProductosView } from './components/productos/ProductosView.jsx'
 import { Container } from './components/Container.jsx'
 import { useErrorModal } from './hooks/useErrorModal.js'
 import { ErrorModal } from './components/utils/Modals/ErrorModal.jsx'
@@ -20,8 +20,8 @@ function App() {
         <Container>
           <BrowserRouter>
             <Routes>
-              <Route path='/productos' element={<ProductosList />} >
-                <Route path=':page' element={<ProductosList />} />
+              <Route path='/productos' element={<ProductosView />} >
+                <Route path=':page' element={<ProductosView />} />
               </Route>
               <Route path='/pedidos' element={<PedidosList />} >
                 <Route path=':page' element={<PedidosList />} />

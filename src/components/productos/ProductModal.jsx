@@ -3,38 +3,38 @@ import { ModalBase } from "../utils/Modals/ModalBase";
 import { useProducts } from "../../hooks/useProducts";
 import { useEffect, useState } from "react";
 import { useErrorModal } from "../../hooks/useErrorModal";
-export const ProductoModal = ({ modalData, setModalData, closeModal }) => {
+export const ProductoModal = ({ data, modal, setData, closeModal }) => {
 
     const [showAlert, setShowAlert] = useState(false);
     const [nombreInputColor, setNombreInputColor] = useState("")
     const [precioInputColor, setPrecioInputColor] = useState("")
-    const [newProductoData, setNewProductoData] = useState({ nombre: null, precio: null });
+    const [newProductoData, setNewProductoData] = useState({ id: 0, nombre: "", precio: "" });
     const { addProducto, updateProducto, failedState } = useProducts();
     const { showErrorModal } = useErrorModal();
- 
+
     const handleNombreChange = (e) => {
-        setModalData({ ...modalData, nombre: e.target.value });
+        setData({ ...data, nombre: e.target.value });
     }
 
     const handlePrecioChange = (e) => {
-        setModalData({ ...modalData, precio: e.target.value });
+        setData({ ...data, precio: e.target.value });
     }
 
     useEffect(() => {
         if (showAlert === false) return;
-        if (modalData.nombre === '') {
+        if (data.nombre === '') {
             setNombreInputColor("failure");
         } else {
             setNombreInputColor("");
         }
 
-        if (modalData.precio === '') {
+        if (data.precio === '') {
             setPrecioInputColor("failure");
         } else {
             setPrecioInputColor("");
         }
 
-    }, [showAlert, modalData]);
+    }, [showAlert, data]);
 
     useEffect(() => {
         if (failedState == true) {
@@ -51,38 +51,33 @@ export const ProductoModal = ({ modalData, setModalData, closeModal }) => {
 
     const handleSave = () => {
 
-        if (modalData.nombre === '' && modalData.precio === '') {
+        if (data.nombre === '' && data.precio === '') {
             setShowAlert(true);
             setNombreInputColor("failure");
             setPrecioInputColor("failure");
             return;
         }
 
-        if (modalData.nombre === '') {
+        if (data.nombre === '') {
             setShowAlert(true);
             return;
         }
 
-        if (modalData.precio === '') {
+        if (data.precio === '') {
             setShowAlert(true);
             return;
         }
 
-        if (modalData.update) {
-            if (modalData.nombre === newProductoData.nombre && modalData.precio === newProductoData.precio) {
+        if (modal.update) {
+            if (data.nombre === newProductoData.nombre && data.precio === newProductoData.precio) {
                 closeAndResetValues();
                 return;
-            } 
+            }
 
-            // If the user only changed one of the values, we only send that value to the backend
-            const newProductoObject = {};
-            if(modalData.nombre !== newProductoData.nombre) newProductoObject.nombre = modalData.nombre;
-            if(modalData.precio !== newProductoData.precio) newProductoObject.precio = modalData.precio;
-
-            updateProducto({ id: modalData.id, nombre: newProductoObject.nombre, precio: newProductoObject.precio });
+            updateProducto(data);
         }
         else {
-            addProducto({ nombre: modalData.nombre, precio: modalData.precio });
+            addProducto({ nombre: data.nombre, precio: data.precio });
         }
         closeAndResetValues();
     }
@@ -96,8 +91,8 @@ export const ProductoModal = ({ modalData, setModalData, closeModal }) => {
 
     return (
         <>
-            <ModalBase title="Agregar un producto" open={modalData.new || modalData.update} setModalData={setModalData} closeModal={closeAndResetValues} onKeyDown={handleKeyDown}>
-                <Alert color="red" className={`mb-6 ${showAlert===true ? "" : "hidden"}`}>
+            <ModalBase title={ modal.new? "Agregar un producto" : "Editar producto" } open={modal.new || modal.update} closeModal={closeAndResetValues} onKeyDown={handleKeyDown}>
+                <Alert color="red" className={`mb-6 ${showAlert === true ? "" : "hidden"}`}>
                     <p>Los campos no pueden estar vacios</p>
                 </Alert>
                 <div className="mb-8 space-y-6">
@@ -106,7 +101,7 @@ export const ProductoModal = ({ modalData, setModalData, closeModal }) => {
                             <Label htmlFor="nombre" value="Nombre:" />
                             <span className="text-red-500">*</span>
                         </div>
-                        <TextInput color={nombreInputColor} id="nombre" value={modalData.nombre} onChange={handleNombreChange} required />
+                        <TextInput color={nombreInputColor} id="nombre" value={data.nombre} onChange={handleNombreChange} required />
                     </div>
                     <div>
                         <div className="mb-2 block">
@@ -114,7 +109,7 @@ export const ProductoModal = ({ modalData, setModalData, closeModal }) => {
                             <span className="text-red-500">*</span>
                         </div>
                         <div className="flex items-center">
-                            <Label value="Gs." /> <TextInput color={precioInputColor} type="number" className="w-full" id="precio" value={modalData.precio} onChange={handlePrecioChange} required />
+                            <Label value="Gs." /> <TextInput color={precioInputColor} type="number" className="w-full" id="precio" value={data.precio} onChange={handlePrecioChange} required />
                         </div>
                     </div>
                 </div>
