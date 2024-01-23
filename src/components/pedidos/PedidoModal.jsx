@@ -10,8 +10,7 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
 
     const [showAlert, setShowAlert] = useState(false);
     const [nombreInputColor, setNombreInputColor] = useState("")
-    const [direccionInputColor, setDireccionInputColor] = useState("")
-    const [newPedidoData, setNewPedidoData] = useState({ id: 0, nombre: "", direccion: "", detalles:[] });
+    const [newPedidoData, setNewPedidoData] = useState({ id: 0, nombre: "", direccion: "", detalles: [] });
     const { addPedido, updatePedido, failedState } = usePedidos();
     const { showErrorModal } = useErrorModal();
 
@@ -31,12 +30,6 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
             setNombreInputColor("");
         }
 
-        if (data.direccion === '') {
-            setDireccionInputColor("failure");
-        } else {
-            setDireccionInputColor("");
-        }
-
     }, [showAlert, data]);
 
     useEffect(() => {
@@ -54,10 +47,9 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
 
     const handleSave = () => {
 
-        if (data.nombreCliente === '' && data.estado === '') {
+        if (data.nombreCliente === '') {
             setShowAlert(true);
             setNombreInputColor("failure");
-            setDireccionInputColor("failure");
             return;
         }
 
@@ -94,7 +86,6 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
     const closeAndResetValues = () => {
         setShowAlert(false);
         setNombreInputColor("");
-        setDireccionInputColor("");
         closeModal();
     }
 
@@ -116,42 +107,46 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
                         <div>
                             <div className="mb-2 block">
                                 <Label htmlFor="direccion" value="Direccion:" />
-                                <span className="text-red-500">*</span>
                             </div>
                             <div className="flex items-center">
-                                <TextInput color={direccionInputColor} className="w-full" id="direccion" value={data.direccion} onChange={handleEstadoChange} required />
+                                <TextInput color="" className="w-full" id="direccion" value={data.direccion} onChange={handleEstadoChange} required />
                             </div>
                         </div>
                     </div>
 
-                    <div className="p-3 rounded-md bg-slate-50">
+                    <div className="sm:p-3 rounded-md bg-slate-50 overflow-x-auto ">
                         <ProductSearch />
-                        <Table className="mt-2 rounded-md bg-white">
-                            <TableHead>
+                        <Table className="sm:mt-2 rounded-md bg-white">
+                            <TableHead className="hidden sm:table-header-group">
                                 <TableHeadCell>Producto</TableHeadCell>
                                 <TableHeadCell>Cantidad</TableHeadCell>
                                 <TableHeadCell>Total</TableHeadCell>
                             </TableHead>
                             <TableBody>
-                                <TableRow className=" border-b">
+                                <TableRow className="border-b">
                                     <TableCell>Hamburguesa Tradicional</TableCell>
-                                    <TableCell> <TextInput type="number" value={100} className="w-20 max-w-full text-center" onChange={()=>{}} /> </TableCell>
+                                    <TableCell> <TextInput type="number" value={100} className="w-20 max-w-full text-center" onChange={() => { }} /> </TableCell>
                                     <TableCell>30000</TableCell>
                                 </TableRow>
 
-                                <TableRow className=" border-b">
+                                <TableRow className="border-b">
                                     <TableCell>Hamburguesa Tradicional</TableCell>
-                                    <TableCell> <TextInput type="number" value={100} className="w-20 max-w-full text-center" onChange={()=>{}} /> </TableCell>
+                                    <TableCell> <TextInput type="number" value={100} className="w-20 max-w-full text-center" onChange={() => { }} /> </TableCell>
+                                    <TableCell>30000</TableCell>
+                                </TableRow>
+                                <TableRow className="border-b">
+                                    <TableCell>Hamburguesa Tradicional</TableCell>
+                                    <TableCell> <TextInput type="number" value={100} className="w-20 max-w-full text-center" onChange={() => { }} /> </TableCell>
                                     <TableCell>30000</TableCell>
                                 </TableRow>
                             </TableBody>
                         </Table>
                     </div>
 
-                    <div className=" bg-yellow-50 text-yellow-700 p-3 mx-10 rounded-md shadow-xl">
-                        <div className="grid grid-cols-2 px-3 text-center">
+                    <div className=" bg-yellow-50 text-yellow-700 p-3 sm:mx-10 rounded-md shadow-xl">
+                        <div className="grid grid-cols-2 sm:px-3 text-center">
                             <span className="text-xl font-bold">Total</span>
-                            <span className="text-xl font-bold">60000</span>
+                            <p>Gs. <span className="text-xl font-bold">60000</span></p>
                         </div>
                     </div>
 
