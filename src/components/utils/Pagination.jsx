@@ -14,7 +14,7 @@ export const PaginationFooter = () => {
 
     return (
         <div className="flex flex-col items-center pt-3">
-            <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} showIcons nextLabel="Siguiente" previousLabel="Anterior" />
+            <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} showIcons nextLabel="" previousLabel="" />
             <p className="mt-2">Página <b>{page}</b> de <b>{totalPages}</b></p>
         </div>
     );
