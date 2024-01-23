@@ -73,20 +73,20 @@ export const ProductosTable = () => {
                     Agregar un producto
                 </Button>
             </div>
-            <Table>
+            <Table className="bg-white">
                 <TableHead>
                     <TableHeadCell>Nombre</TableHeadCell>
                     <TableHeadCell>Precio</TableHeadCell>
-                    <TableHeadCell>Actiones</TableHeadCell>
+                    <TableHeadCell></TableHeadCell>
                 </TableHead>
                 <TableBody>
                     {productos.map((producto) => {
-                        return (<TableRow key={producto.id} className="border-b hover:bg-gray-50">
+                        return (<TableRow key={producto.id} className="border-b hover:bg-gray-50 ">
                             <TableCell>{producto.nombre}</TableCell>
                             <TableCell>{producto.precio}</TableCell>
                             <TableCell>
-                                <div className="flex gap-2">
-                                    <Button color="info" outline onClick={() => handleEdit(producto)}>
+                                <div className="inline-flex sm:gap-2">
+                                    <Button color="light" outline onClick={() => handleEdit(producto)}>
                                         <HiPencil className="w-4 h-4 mx-0 md:mr-1" />
                                         <span className="hidden md:block">Editar</span></Button>
                                     <Button color="failure" outline onClick={() => handleErase(producto)}>
