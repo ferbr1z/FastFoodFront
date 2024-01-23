@@ -15,13 +15,14 @@ export const reducerFunction = (state, action) => {
                 totalPages: action.payload.totalPages,
             };
         case 'findProductByName':
+
             return {
                 ...state,
                 productos: action.payload.data,
                 page: action.payload.page,
                 recordsPerPage: action.payload.recordsPerPage,
                 totalRecords: action.payload.totalRecords,
-                totalPages: action.payload.totalPages,
+                totalSearchPages: action.payload.totalPages,
             };
         case 'updateProducto':
             return {

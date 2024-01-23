@@ -30,13 +30,15 @@ export const useProducts = () => {
         }
     }
 
-    const findProductByName = async (page, name) => {
+    const findProductByName = async (name, page) => {
         try {
-            setFailedState(false);
-            const response = await ProductoApi.findByName(page, name);
+            setLoadedState(false);
+            setFailedOnLoadState(false);
+            const response = await ProductoApi.findByName(name,page);
             dispatch({ type: 'findProductByName', payload: response.data });
+            setLoadedState(true);
         } catch (error) {
-            setFailedState(true);
+            setFailedOnLoadState(true);
         }
     }
 
@@ -58,5 +60,5 @@ export const useProducts = () => {
         } catch (e) { setFailedState(true) }
     }
 
-    return { productos, addProducto, getAllProduct, updateProducto, deleteProducto, loadedState, failedState, failedOnLoadState };
+    return { productos, addProducto, getAllProduct, findProductByName, updateProducto, deleteProducto, loadedState, failedState, failedOnLoadState };
 }

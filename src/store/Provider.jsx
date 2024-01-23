@@ -10,6 +10,7 @@ export const Provider = ({ children }) => {
         recordsPerPage: 0,
         totalRecords: 0,
         totalPages: 0,
+        totalSearchPages:0,
         errorModalState: false ,
         failedFetch: false,
     };

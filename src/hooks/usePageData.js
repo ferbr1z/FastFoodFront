@@ -3,7 +3,7 @@ import { AppContext } from "../store/appContext";
 
 export const usePageDate = () => {
     const { state } = useContext(AppContext);
-    const { page, recordsPerPage, totalRecords, totalPages } = state;
+    const { page, recordsPerPage, totalRecords, totalPages, totalSearchPages } = state;
 
-    return { page, recordsPerPage, totalRecords, totalPages };
+    return { page, recordsPerPage, totalRecords, totalPages, totalSearchPages };
 }
