@@ -11,6 +11,10 @@ export class ProductoApi {
     return await api.get(`${this.uri}/${page}`);
   }
 
+  static async findByName(page = 1, name) {
+    return await api.get(`${this.uri}/nombre/${name}/${page}`);
+  }
+
   static async find(id) {
     return await api.get(`${this.uri}/id/${id}`);
   }

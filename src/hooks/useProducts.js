@@ -30,6 +30,16 @@ export const useProducts = () => {
         }
     }
 
+    const findProductByName = async (page, name) => {
+        try {
+            setFailedState(false);
+            const response = await ProductoApi.findByName(page, name);
+            dispatch({ type: 'findProductByName', payload: response.data });
+        } catch (error) {
+            setFailedState(true);
+        }
+    }
+
     const updateProducto = async (producto) => {
         try {
             setFailedState(false);
