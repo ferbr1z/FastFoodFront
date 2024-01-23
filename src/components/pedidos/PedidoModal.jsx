@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { useErrorModal } from "../../hooks/useErrorModal";
 import { EstadosPedidos } from "../utils/EstadosPedidos";
 import { usePedidos } from "../../hooks/usePedidos";
-import { ProductSearch } from "../productos/ProductSearch";
+import { ProductSearch } from "./ProductSearch";
 import { H3 } from "../utils/headers/H3";
 export const PedidoModal = ({ data, modal, setData, closeModal }) => {
 
     const [showAlert, setShowAlert] = useState(false);
     const [nombreInputColor, setNombreInputColor] = useState("")
-    const [precioInputColor, setPrecioInputColor] = useState("")
-    const [newPedidoData, setNewPedidoData] = useState({ id: 0, nombre: "", precio: "" });
+    const [direccionInputColor, setDireccionInputColor] = useState("")
+    const [newPedidoData, setNewPedidoData] = useState({ id: 0, nombre: "", direccion: "", detalles:[] });
     const { addPedido, updatePedido, failedState } = usePedidos();
     const { showErrorModal } = useErrorModal();
 
@@ -20,7 +20,7 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
     }
 
     const handleEstadoChange = (e) => {
-        setData({ ...data, precio: e.target.value });
+        setData({ ...data, direccion: e.target.value });
     }
 
     useEffect(() => {
@@ -31,10 +31,10 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
             setNombreInputColor("");
         }
 
-        if (data.precio === '') {
-            setPrecioInputColor("failure");
+        if (data.direccion === '') {
+            setDireccionInputColor("failure");
         } else {
-            setPrecioInputColor("");
+            setDireccionInputColor("");
         }
 
     }, [showAlert, data]);
@@ -57,7 +57,7 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
         if (data.nombreCliente === '' && data.estado === '') {
             setShowAlert(true);
             setNombreInputColor("failure");
-            setPrecioInputColor("failure");
+            setDireccionInputColor("failure");
             return;
         }
 
@@ -66,13 +66,13 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
             return;
         }
 
-        if (data.precio === '') {
+        if (data.direccion === '') {
             setShowAlert(true);
             return;
         }
 
         if (modal.update) {
-            if (data.nombreCliente === newPedidoData.nombreCliente && data.precio === newPedidoData.precio) {
+            if (data.nombreCliente === newPedidoData.nombreCliente && data.direccion === newPedidoData.direccion) {
                 closeAndResetValues();
                 return;
             }
@@ -81,12 +81,12 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
             const newPedidoObject = {};
             newPedidoObject.id = data.id;
             newPedidoObject.nombreCliente = data.nombreCliente;
-            newPedidoObject.precio = data.precio;
+            newPedidoObject.direccion = data.direccion;
 
             updatePedido(newPedidoObject);
         }
         else {
-            addPedido({ nombreCliente: data.nombreCliente, precio: data.precio });
+            addPedido({ nombreCliente: data.nombreCliente, direccion: data.direccion });
         }
         closeAndResetValues();
     }
@@ -94,7 +94,7 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
     const closeAndResetValues = () => {
         setShowAlert(false);
         setNombreInputColor("");
-        setPrecioInputColor("");
+        setDireccionInputColor("");
         closeModal();
     }
 
@@ -115,11 +115,11 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
                         </div>
                         <div>
                             <div className="mb-2 block">
-                                <Label htmlFor="precio" value="Direccion:" />
+                                <Label htmlFor="direccion" value="Direccion:" />
                                 <span className="text-red-500">*</span>
                             </div>
                             <div className="flex items-center">
-                                <TextInput color={precioInputColor} className="w-full" id="precio" value={data.direccion} onChange={handleEstadoChange} required />
+                                <TextInput color={direccionInputColor} className="w-full" id="direccion" value={data.direccion} onChange={handleEstadoChange} required />
                             </div>
                         </div>
                     </div>
@@ -135,20 +135,20 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
                             <TableBody>
                                 <TableRow className=" border-b">
                                     <TableCell>Hamburguesa Tradicional</TableCell>
-                                    <TableCell>2</TableCell>
+                                    <TableCell> <TextInput type="number" value={100} className="w-20 max-w-full text-center" onChange={()=>{}} /> </TableCell>
                                     <TableCell>30000</TableCell>
                                 </TableRow>
 
                                 <TableRow className=" border-b">
                                     <TableCell>Hamburguesa Tradicional</TableCell>
-                                    <TableCell>2</TableCell>
+                                    <TableCell> <TextInput type="number" value={100} className="w-20 max-w-full text-center" onChange={()=>{}} /> </TableCell>
                                     <TableCell>30000</TableCell>
                                 </TableRow>
                             </TableBody>
                         </Table>
                     </div>
 
-                    <div className=" bg-yellow-50 text-yellow-700 p-3 mx-10 rounded-md shadow-lg">
+                    <div className=" bg-yellow-50 text-yellow-700 p-3 mx-10 rounded-md shadow-xl">
                         <div className="grid grid-cols-2 px-3 text-center">
                             <span className="text-xl font-bold">Total</span>
                             <span className="text-xl font-bold">60000</span>
