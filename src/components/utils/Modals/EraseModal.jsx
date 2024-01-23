@@ -3,12 +3,12 @@ import { ModalBase } from "./ModalBase"
 import { Button } from "flowbite-react"
 import { useErrorModal } from "../../../hooks/useErrorModal";
 import { useEffect } from "react";
-export const RemoveModal = ({ title, modalData, closeModal, removeFunction, isOpen, failedState }) => {
+export const RemoveModal = ({ data, closeModal, removeFunction, open, failedState }) => {
 
     const { showErrorModal } = useErrorModal();
 
     const removeHandler = () => {
-        removeFunction(modalData.id);
+        removeFunction(data.id);
         closeModal();
     }
     useEffect(() => {
@@ -16,13 +16,13 @@ export const RemoveModal = ({ title, modalData, closeModal, removeFunction, isOp
             showErrorModal();
         }
     }, [failedState]);
-    
 
-    return <ModalBase title={title || "Borrar"} open={modalData.remove} closeModal={closeModal} isOpen={isOpen}>
+
+    return <ModalBase title={`Borrar ${data.nombre}`} open={open} closeModal={closeModal}>
         <div className="text-center">
             <HiTrash className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
             <h3 className="mb-5 text-2xl font-normal text-gray-500 dark:text-gray-400">
-                ¿Estas seguro que quieres borrar <br /> <b>{modalData.nombre}</b>?
+                ¿Estas seguro que quieres borrar <br /> <b>{data.nombre}</b>?
             </h3>
             <div className="flex justify-center gap-4">
                 <Button color="failure" onClick={removeHandler}>
