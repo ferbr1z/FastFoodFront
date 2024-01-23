@@ -19,6 +19,16 @@ export const usePedidos = () => {
         }
     }
 
+    const getPedidoById = async (id) => {
+        try {
+            setFailedState(false);
+            const response = await PedidoApi.getById(id);
+            return response.data;
+        } catch (error) {
+            setFailedState(true);
+        }
+    }
+
     const getAllPedidos = async (page) => {
         try {
             setFailedState(false);
@@ -59,5 +69,5 @@ export const usePedidos = () => {
         } catch (e) { setFailedState(true) }
     }
 
-    return { pedidos, addPedido, getAllPedidos, getAllPedidosEntregados, updatePedido, deletePedido, loadedState, failedState, failedOnLoadState };
+    return { pedidos, addPedido, getPedidoById, getAllPedidos, getAllPedidosEntregados, updatePedido, deletePedido, loadedState, failedState, failedOnLoadState };
 }

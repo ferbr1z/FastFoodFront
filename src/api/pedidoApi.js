@@ -15,7 +15,7 @@ export class PedidoApi {
     return await api.get(`${this.uri}/entregados/${page}`);
   }
 
-  static async find(id) {
+  static async getById(id) {
     return await api.get(`${this.uri}/id/${id}`);
   }
 
