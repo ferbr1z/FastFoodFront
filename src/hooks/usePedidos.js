@@ -40,11 +40,22 @@ export const usePedidos = () => {
         }
     }
 
-    const getAllPedidosEntregados = async (page) => {
+    const getPedidosEntregados = async (page) => {
         try {
             setFailedState(false);
             const response = await PedidoApi.all(page);
             dispatch({ type: 'getAllPedidosEntregados', payload: response.data });
+            setLoadedState(true);
+        } catch (error) {
+            setFailedOnLoadState(true);
+        }
+    }
+
+    const getPedidosCancelados = async (page) => {
+        try {
+            setFailedState(false);
+            const response = await PedidoApi.getCancelados(page);
+            dispatch({ type: 'getAllPedidosCancelados', payload: response.data });
             setLoadedState(true);
         } catch (error) {
             setFailedOnLoadState(true);
@@ -69,5 +80,5 @@ export const usePedidos = () => {
         } catch (e) { setFailedState(true) }
     }
 
-    return { pedidos, addPedido, getPedidoById, getAllPedidos, getAllPedidosEntregados, updatePedido, deletePedido, loadedState, failedState, failedOnLoadState };
+    return { pedidos, addPedido, getPedidoById, getAllPedidos, getPedidosEntregados, updatePedido, deletePedido, loadedState, failedState, failedOnLoadState };
 }
