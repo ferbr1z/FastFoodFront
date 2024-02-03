@@ -48,8 +48,6 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
 
     const handleSave = () => {
 
-        {console.log(data.pedidoDetalle.length)}
-
         if (data.nombreCliente === '') {
             setShowAlert(true);
             setAlertMsg("El nombre del cliente no puede estar vacío.");
@@ -62,7 +60,7 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
             setAlertMsg("El pedido no puede estar vacío.");
             return;
         }
-       
+
         if (data.nombreCliente === '') {
             setShowAlert(true);
             return;
@@ -119,25 +117,26 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
 
     const pedidoTable = () => {
         return <>
-            <Table className="sm:mt-2 rounded-md bg-white overflow-x-auto">
+            <Table className="mt-2 rounded-md bg-white overflow-x-auto" hoverable>
                 <TableHead className="hidden sm:table-header-group">
+                    <TableHeadCell></TableHeadCell>
                     <TableHeadCell>Producto</TableHeadCell>
                     <TableHeadCell>Cantidad</TableHeadCell>
                     <TableHeadCell>Total</TableHeadCell>
-                    <TableHeadCell></TableHeadCell>
                 </TableHead>
                 <TableBody>
                     {
                         data.pedidoDetalle.map((detalle) => {
-                            return <TableRow className="border-b">
-                                <TableCell>{detalle.producto.nombre}</TableCell>
-                                <TableCell> <TextInput type="number" value={detalle.cantidad} className="w-20 max-w-full text-center" onChange={(e) => handleProductoCantidadChange(e, detalle.producto)} /> </TableCell>
-                                <TableCell>Gs.<b>{(detalle.producto.precio * detalle.cantidad)}</b></TableCell>
-                                <TableCell>
+                            return <TableRow className="border-b" key={detalle.producto.id}>
+                                <TableCell className="px-2 py-1 md:px-6 md:py-4">
                                     <a className="hover:text-red-600 block p-3" title="Borrar de la lista" onClick={() => handleRemoveProducto(detalle.producto.id)} >
                                         <HiXCircle className="w-5 h-5 mx-0" />
                                     </a>
                                 </TableCell>
+                                <TableCell className="px-2 py-1 md:px-6 md:py-4">{detalle.producto.nombre}</TableCell>
+                                <TableCell className="px-2 py-1 md:px-6 md:py-4"> <TextInput type="number" value={detalle.cantidad} className="w-20 max-w-full text-center" onChange={(e) => handleProductoCantidadChange(e, detalle.producto)} /> </TableCell>
+                                <TableCell className="px-2 py-1 md:px-6 md:py-4">Gs.<b>{(detalle.producto.precio * detalle.cantidad)}</b></TableCell>
+
                             </TableRow>
                         })
                     }
