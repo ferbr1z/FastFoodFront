@@ -16,7 +16,7 @@ export const ProductSearch = ({ pedido, setPedido }) => {
     }
 
     const handleProductClick = (producto) => {
-        setPedido({ ...pedido, pedidoDetalle: [...pedido.pedidoDetalle, { producto: producto, cantidad: 1 }] });
+        setPedido({ ...pedido, pedidoDetalle: [...pedido.pedidoDetalle, { producto: producto, cantidad: 1, productoId: producto.id, precio: producto.precio }] });
         setProductoNombre("");
         setProductoSearchPage(1);
     }
@@ -28,19 +28,19 @@ export const ProductSearch = ({ pedido, setPedido }) => {
 
     const searchResult = () => {
 
-        
+
         if (loadedState === false) return <Loading minimal />;
         if (productos.length === 0) return <p className="text-center m-3 font-bold text-gray-500">No se han encontrado coincidencias.</p>;
 
         return (<>
-            <Table className="drop-shadow-none">
+            <Table className="drop-shadow-none" hoverable>
                 <TableBody>
                     {productos.map((producto, i) => {
-                        return <TableRow key={producto.id} onClick={() => handleProductClick(producto)} className={`hover:bg-gray-50 active:bg-gray-200 ${i < (productos.length - 1) ? "border-b" : ""}`}>
+                        return <TableRow key={producto.id} onClick={() => handleProductClick(producto)} className={`active:bg-gray-200 ${i < (productos.length - 1) ? "border-b" : ""}`}>
                             <TableCell>
                                 <HighlightSearchResult text={producto.nombre} highlightText={productoNombre} />
                             </TableCell>
-                            <TableCell>Gs. <span className="font-bold text-red-600">{producto.precio}</span> </TableCell>
+                            <TableCell>Gs.<span className="font-bold text-red-600">{producto.precio}</span> </TableCell>
                         </TableRow>
                     })
                     }
@@ -55,9 +55,10 @@ export const ProductSearch = ({ pedido, setPedido }) => {
                 <TextInput color="light" type="search" id="productoSearch" value={productoNombre} onChange={handleSearch} placeholder="Escribe el nombre del producto que deseas buscar..." />
 
                 {/* Resultado de búsqueda */}
-                <div className={`absolute z-40 bg-white w-full mt-1 p-2 rounded-md  shadow-lg ${productoNombre.length < 3 ? "hidden" : ""} `}>
+
+            </div>
+            <div className={`absolute z-50 w-5/6 bg-white mt-1 p-2 rounded-md  shadow-lg ${productoNombre.length < 3 ? "hidden" : ""} `}>
                     {searchResult()}
-                </div>
             </div>
         </>
     );
