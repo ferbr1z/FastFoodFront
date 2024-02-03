@@ -73,7 +73,7 @@ export const ProductosTable = () => {
                     Agregar un producto
                 </Button>
             </div>
-            <Table className="bg-white">
+            <Table className="bg-white" hoverable>
                 <TableHead>
                     <TableHeadCell>Nombre</TableHeadCell>
                     <TableHeadCell>Precio</TableHeadCell>
@@ -81,7 +81,7 @@ export const ProductosTable = () => {
                 </TableHead>
                 <TableBody>
                     {productos.map((producto) => {
-                        return (<TableRow key={producto.id} className="border-b hover:bg-gray-50 ">
+                        return (<TableRow key={producto.id} className="border-b">
                             <TableCell>{producto.nombre}</TableCell>
                             <TableCell>{producto.precio}</TableCell>
                             <TableCell>
