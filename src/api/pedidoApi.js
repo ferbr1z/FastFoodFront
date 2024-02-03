@@ -15,6 +15,10 @@ export class PedidoApi {
     return await api.get(`${this.uri}/entregados/${page}`);
   }
 
+  static async getCancelados(page = 1) {
+    return await api.get(`${this.uri}/cancelados/${page}`);
+  }
+
   static async getById(id) {
     return await api.get(`${this.uri}/id/${id}`);
   }
