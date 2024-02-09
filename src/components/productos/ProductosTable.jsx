@@ -51,7 +51,7 @@ export const ProductosTable = () => {
     const WithoutItems = () => {
         return (<div className="h-100 w-100 flex items-center justify-center my-80"><center>
             <H2 color="gray">No hay productos todavía</H2>
-            <Button className="m-3" onClick={() => handleOpenModal()}>
+            <Button className="m-3" onClick={() => handleNew()}>
                 <HiPlus />
                 Agregar un producto
             </Button>
