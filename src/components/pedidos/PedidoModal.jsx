@@ -2,7 +2,6 @@ import { Label, TextInput, Button, Alert, Table, TableHead, TableHeadCell, Table
 import { ModalBase } from "../utils/Modals/ModalBase";
 import { useEffect, useState } from "react";
 import { useErrorModal } from "../../hooks/useErrorModal";
-import { EstadosPedidos } from "../utils/EstadosPedidos";
 import { usePedidos } from "../../hooks/usePedidos";
 import { ProductSearch } from "./ProductSearch";
 import { H3 } from "../utils/headers/H3";
@@ -67,19 +66,20 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
         }
 
 
-
+        const pedidoObject = {};
+            pedidoObject.nombreCliente = data.nombreCliente;
+            pedidoObject.direccion = data.direccion;
+            pedidoObject.pedidoDetalle = data.pedidoDetalle.map((detalle) => {
+                return { productoId: detalle.producto.id, cantidad: detalle.cantidad, precio: detalle.producto.precio}
+            });
         if (modal.update) {
+            pedidoObject.id = data.id;
             // If the user only changed one of the values, we only send that value to the backend
-            const newPedidoObject = {};
-            newPedidoObject.id = data.id;
-            newPedidoObject.nombreCliente = data.nombreCliente;
-            newPedidoObject.direccion = data.direccion;
-            newPedidoObject.pedidoDetalle = data.pedidoDetalle;
-
-            updatePedido(newPedidoObject);
+            updatePedido(pedidoObject);
         }
         else {
-            addPedido({ nombreCliente: data.nombreCliente, direccion: data.direccion });
+           
+            addPedido(pedidoObject);
         }
         closeAndResetValues();
     }
