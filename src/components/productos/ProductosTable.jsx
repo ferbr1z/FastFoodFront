@@ -1,4 +1,4 @@
-import { Button, Table, TableHead, TableHeadCell, TableCell, TableBody, TableRow } from "flowbite-react"
+import { Button, Table, TableHead, TableHeadCell, TableCell, TableBody, TableRow, ButtonGroup } from "flowbite-react"
 import { useProducts } from "../../hooks/useProducts";
 import { RemoveModal } from "../utils/Modals/EraseModal";
 import { useState } from "react";
@@ -11,12 +11,12 @@ import { ProductoModal } from "./ProductModal";
 export const ProductosTable = () => {
     const { page } = useParams();
 
-    const { productos, failedState } = useProducts();
+    const { productos, deleteProducto, failedState } = useProducts();
     const [modal, setModal] = useState({ new: false, update: false, remove: false });
     const [productoData, setProductoData] = useState({ id: 0, nombre: "", precio: "" });
 
     const removeFuntion = async (id) => {
-        deleteProducto(id);
+        await deleteProducto(id);
     }
 
     const handleNew = () => {
@@ -85,15 +85,15 @@ export const ProductosTable = () => {
                             <TableCell>{producto.nombre}</TableCell>
                             <TableCell>{producto.precio}</TableCell>
                             <TableCell>
-                                <div className="inline-flex sm:gap-2">
+                                <ButtonGroup>
                                     <Button color="light" outline onClick={() => handleEdit(producto)}>
                                         <HiPencil className="w-4 h-4 mx-0 md:mr-1" />
                                         <span className="hidden md:block">Editar</span></Button>
-                                    <Button color="failure" outline onClick={() => handleErase(producto)}>
+                                    <Button color="red" onClick={() => handleErase(producto)}>
                                         <HiTrash className="w-4 h-4 mx-0 md:mr-1" />
                                         <span className="hidden md:block"> Borrar</span>
                                     </Button>
-                                </div>
+                                </ButtonGroup>
                             </TableCell>
                         </TableRow>
                         )
