@@ -31,6 +31,7 @@ export const usePedidos = () => {
 
     const getAllPedidos = async (page) => {
         try {
+            setLoadedState(false);
             setFailedState(false);
             const response = await PedidoApi.all(page);
             dispatch({ type: 'getAllPedidos', payload: response.data });
@@ -42,9 +43,10 @@ export const usePedidos = () => {
 
     const getPedidosEntregados = async (page) => {
         try {
+            setLoadedState(false);
             setFailedState(false);
-            const response = await PedidoApi.all(page);
-            dispatch({ type: 'getAllPedidosEntregados', payload: response.data });
+            const response = await PedidoApi.getEntregados(page);
+            dispatch({ type: 'getAllPedidos', payload: response.data });
             setLoadedState(true);
         } catch (error) {
             setFailedOnLoadState(true);
@@ -53,9 +55,10 @@ export const usePedidos = () => {
 
     const getPedidosCancelados = async (page) => {
         try {
+            setLoadedState(false);
             setFailedState(false);
             const response = await PedidoApi.getCancelados(page);
-            dispatch({ type: 'getAllPedidosCancelados', payload: response.data });
+            dispatch({ type: 'getAllPedidos', payload: response.data });
             setLoadedState(true);
         } catch (error) {
             setFailedOnLoadState(true);
@@ -80,5 +83,5 @@ export const usePedidos = () => {
         } catch (e) { setFailedState(true) }
     }
 
-    return { pedidos, addPedido, getPedidoById, getAllPedidos, getPedidosEntregados, updatePedido, deletePedido, loadedState, failedState, failedOnLoadState };
+    return { pedidos, addPedido, getPedidoById, getAllPedidos, getPedidosEntregados,getPedidosCancelados, updatePedido, deletePedido, loadedState, failedState, failedOnLoadState };
 }
