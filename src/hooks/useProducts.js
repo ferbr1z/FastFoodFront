@@ -22,6 +22,7 @@ export const useProducts = () => {
     const getAllProduct = async (page) => {
         try {
             setFailedState(false);
+            setLoadedState(false);
             const response = await ProductoApi.all(page);
             dispatch({ type: 'getAllProduct', payload: response.data });
             setLoadedState(true);

@@ -4,9 +4,10 @@ import { RemoveModal } from "../utils/Modals/EraseModal";
 import { useState } from "react";
 import { HiPencil, HiPlus, HiTrash } from "react-icons/hi";
 import { PaginationFooter } from "../utils/Pagination";
-import { H2 } from "../utils/headers/H2";
 import { useParams } from "react-router-dom"
 import { ProductoModal } from "./ProductModal";
+import { ListEmpty } from "../utils/ListEmpty";
+import { NoMoreItems } from "../utils/NoMoreItems";
 
 export const ProductosTable = () => {
     const { page } = useParams();
@@ -48,22 +49,6 @@ export const ProductosTable = () => {
 
     const closeModal = () => { setModal({ update: false, remove: false }) };
 
-    const WithoutItems = () => {
-        return (<div className="h-100 w-100 flex items-center justify-center my-80"><center>
-            <H2 color="gray">No hay productos todavía</H2>
-            <Button className="m-3" onClick={() => handleNew()}>
-                <HiPlus />
-                Agregar un producto
-            </Button>
-        </center></div>)
-    }
-
-    const NoMoreItems = () => {
-        return (<center><>
-            <H2 color="gray">No hay más productos que mostrar</H2></>
-            <PaginationFooter />
-        </center>)
-    }
 
     const ShowItems = () => {
         return (<>
@@ -73,27 +58,25 @@ export const ProductosTable = () => {
                     Agregar un producto
                 </Button>
             </div>
-            <Table className="bg-white" hoverable>
+            <Table className="bg-white overflow-x-auto" hoverable>
                 <TableHead>
                     <TableHeadCell>Nombre</TableHeadCell>
                     <TableHeadCell>Precio</TableHeadCell>
-                    <TableHeadCell></TableHeadCell>
+                    <TableHeadCell className="w-0"></TableHeadCell>
                 </TableHead>
                 <TableBody>
                     {productos.map((producto) => {
                         return (<TableRow key={producto.id} className="border-b">
                             <TableCell>{producto.nombre}</TableCell>
                             <TableCell>{producto.precio}</TableCell>
-                            <TableCell>
-                                <ButtonGroup>
-                                    <Button color="light" outline onClick={() => handleEdit(producto)}>
-                                        <HiPencil className="w-4 h-4 mx-0 md:mr-1" />
-                                        <span className="hidden md:block">Editar</span></Button>
-                                    <Button color="red" onClick={() => handleErase(producto)}>
-                                        <HiTrash className="w-4 h-4 mx-0 md:mr-1" />
-                                        <span className="hidden md:block"> Borrar</span>
-                                    </Button>
-                                </ButtonGroup>
+                            <TableCell className="flex gap-2 w-25">
+                                <Button color="light" className="inline" outline onClick={() => handleEdit(producto)}>
+                                    <HiPencil className="w-4 h-4 mx-0 md:mr-1" />
+                                    <span className="hidden md:block">Editar</span></Button>
+                                <Button color="red" className="inline" onClick={() => handleErase(producto)}>
+                                    <HiTrash className="w-4 h-4 mx-0 md:mr-1" />
+                                    <span className="hidden md:block"> Borrar</span>
+                                </Button>
                             </TableCell>
                         </TableRow>
                         )
@@ -107,7 +90,7 @@ export const ProductosTable = () => {
 
     const render = () => {
         if (productos.length === 0) {
-            return page > 1 ? NoMoreItems() : WithoutItems();
+            return page > 1 ? <NoMoreItems /> : <ListEmpty message="No hay productos para mostrar" buttonText="Agregar un producto" functionToCall={handleNew} />;
         }
         return ShowItems();
     }

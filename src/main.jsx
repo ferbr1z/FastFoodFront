@@ -7,7 +7,9 @@ import { Provider } from './store/Provider.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider>
-      <App />
+      <div className="sm:bg-gray-100 h-[100vh]">
+        <App />
+      </div>
     </Provider>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);

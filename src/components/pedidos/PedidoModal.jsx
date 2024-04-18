@@ -146,8 +146,9 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
                 <div className="grid grid-cols-2 sm:px-3 text-center">
                     <span className="text-xl font-bold">Total</span>
                     <p>Gs. <span className="text-xl font-bold">
+                        {console.log(data.pedidoDetalle)}
                         {
-                            data.pedidoDetalle.reduce((pedido, suma) => (pedido + (suma.producto.precio * suma.cantidad)), 0
+                            data.pedidoDetalle?.reduce((pedido, suma) => (pedido + (suma.producto.precio * suma.cantidad)), 0
                             )}
                     </span></p>
                 </div>
@@ -172,17 +173,17 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
                     <div className="grid grid-cols-2 gap-3">
                         <div>
                             <div className="mb-2 block">
-                                <Label htmlFor="nombre" value="Nombre del Cliente:" />
+                                <Label htmlFor="nombre" value="Cliente:" />
                                 <span className="text-red-500">*</span>
                             </div>
-                            <TextInput color={nombreInputColor} id="nombre" value={data.nombreCliente} onChange={handleNombreClienteChange} required />
+                            <TextInput color={nombreInputColor} id="nombre" value={data.nombreCliente} placeholder="Juan Pérez" onChange={handleNombreClienteChange} required />
                         </div>
                         <div>
                             <div className="mb-2 block">
                                 <Label htmlFor="direccion" value="Direccion:" />
                             </div>
                             <div className="flex items-center">
-                                <TextInput color="" className="w-full" id="direccion" value={data.direccion} onChange={handleEstadoChange} required />
+                                <TextInput color="" className="w-full" id="direccion" value={data.direccion} placeholder="Ita Paso M:1 L:3" onChange={handleEstadoChange} required />
                             </div>
                         </div>
                     </div>

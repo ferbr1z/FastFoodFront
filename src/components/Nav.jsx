@@ -2,14 +2,14 @@ import { Avatar, Dropdown, Navbar } from "flowbite-react";
 
 export const Nav = () => {
   return (
-    <Navbar fluid rounded className="border-gray-100 border-b-2">
-      <Navbar.Brand href="https://flowbite-react.com">
+    <Navbar fluid rounded className="border-gray-100 border-b-2 p-1">
+      <Navbar.Brand href="#">
         {/* <img src="/favicon.svg" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" /> */}
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-          Flowbite React
+          <span className=" text-orange-500">Maná</span> FastFood
         </span>
       </Navbar.Brand>
-      <div className="flex md:order-2">
+      <div className="flex md:order-2 p-0">
         <Dropdown
           arrowIcon={false}
           inline
@@ -35,7 +35,7 @@ export const Nav = () => {
         </Dropdown>
         <Navbar.Toggle />
       </div>
-      <Navbar.Collapse className="bg-gray-100 py-2 px-4 rounded-lg">
+      <Navbar.Collapse className="bg-gray-100 py-3 px-4 rounded-lg">
         <Navbar.Link href="#" active className="rounded-lg">
           Home
         </Navbar.Link>

@@ -128,17 +128,16 @@ export const PedidosList = () => {
         <div className="drop-shadow-md rounded-md overflow-auto">
             <Table className="bg-white" hoverable>
                 <TableHead className="w-full">
-                    <TableHeadCell>Nombre de Cliente</TableHeadCell>
+                    <TableHeadCell>Cliente</TableHeadCell>
                     <TableHeadCell>Direccion</TableHeadCell>
-                    <TableHeadCell></TableHeadCell>
+                    <TableHeadCell className="w-0"></TableHeadCell>
                 </TableHead>
                 <TableBody>
                     {pedidos.map((pedido) => {
                         return (<TableRow key={pedido.id} className=" border-b">
                             <TableCell>{pedido.nombreCliente}</TableCell>
                             <TableCell className="">{pedido.direccion}</TableCell>
-                            <TableCell>
-                                <ButtonGroup>
+                            <TableCell className="flex gap-2">
                                     <Button color="light" onClick={() => handleEdit(pedido)}>
                                         <HiEye className="w-4 h-4 mx-0 md:mr-1" />
                                         <span className="hidden md:block">Ver</span></Button>
@@ -149,7 +148,6 @@ export const PedidosList = () => {
                                         <HiXCircle className="w-4 h-4 mx-0 md:mr-1" />
                                         <span className="hidden md:block"> Cancelar</span>
                                     </Button>
-                                </ButtonGroup>
                             </TableCell>
                         </TableRow>
                         )

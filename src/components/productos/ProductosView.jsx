@@ -3,11 +3,7 @@ import { useProducts } from "../../hooks/useProducts"
 import { useEffect, useState } from "react"
 import { Loading } from "../utils/Loading"
 import { H2 } from "../utils/headers/H2"
-import { ProductoModal } from "./ProductModal"
 import { useParams } from "react-router-dom"
-import { PaginationFooter } from "../utils/Pagination"
-import { HiPlus, HiTrash, HiPencil } from "react-icons/hi";
-import { RemoveModal } from "../utils/Modals/EraseModal"
 import { ProductosTable } from "./ProductosTable"
 
 
