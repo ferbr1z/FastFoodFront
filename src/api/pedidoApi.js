@@ -27,12 +27,12 @@ export class PedidoApi {
     return await api.put(`${this.uri}/id/${id}`, data);
   }
 
-  static async cambiarEstadoAEntregado(id) {
-    return await api.put(`${this.uri}/${id}/entregar`);
+  static async entregarPedido(id) {
+    return await api.put(`${this.uri}/id/${id}/entregar`);
   }
 
-  static async cambiarEstadoACancelado(id) {
-    return await api.put(`${this.uri}/${id}/cancelar`);
+  static async cancelarPedido(id) {
+    return await api.put(`${this.uri}/id/${id}/cancelar`);
   }
 
   static async delete(id) {

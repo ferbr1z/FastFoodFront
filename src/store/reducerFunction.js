@@ -50,6 +50,19 @@ export const reducerFunction = (state, action) => {
                 totalRecords: action.payload.totalRecords,
                 totalPages: action.payload.totalPages,
             };
+
+        case 'entregarPedido':
+            return {
+                ...state,
+                pedidos: state.pedidos.filter(pedido => pedido.id !== action.payload)
+            }
+
+        case 'cancelarPedido':
+            return {
+                ...state,
+                pedidos: state.pedidos.filter(pedido => pedido.id !== action.payload)
+            }
+
         case 'updatePedido':
             return {
                 ...state,

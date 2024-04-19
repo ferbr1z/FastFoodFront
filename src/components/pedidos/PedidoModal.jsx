@@ -146,7 +146,6 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
                 <div className="grid grid-cols-2 sm:px-3 text-center">
                     <span className="text-xl font-bold">Total</span>
                     <p>Gs. <span className="text-xl font-bold">
-                        {console.log(data.pedidoDetalle)}
                         {
                             data.pedidoDetalle?.reduce((pedido, suma) => (pedido + (suma.producto.precio * suma.cantidad)), 0
                             )}

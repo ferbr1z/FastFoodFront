@@ -13,7 +13,7 @@ import { usePedidos } from "../../hooks/usePedidos"
 export const PedidosList = () => {
 
     const { page } = useParams();
-    const { pedidos, getAllPedidos, getPedidoById, getPedidosEntregados, getPedidosCancelados, deletePedido, loadedState, failedState, failedOnLoadState } = usePedidos();
+    const { pedidos, getAllPedidos, getPedidoById, getPedidosEntregados, getPedidosCancelados, deletePedido, entregarPedido, cancelarPedido, loadedState, failedState, failedOnLoadState } = usePedidos();
     const [modal, setModal] = useState({ new: false, update: false, remove: false });
     const [pedidoData, setPedidoData] = useState({ id: 0, nombreCliente: "", estado: "", direccion: "", pedidoDetalle: [] });
     const [fetchEstado, setFetchEstado] = useState("pendientes");
@@ -129,22 +129,24 @@ export const PedidosList = () => {
             <Table className="bg-white" hoverable>
                 <TableHead className="w-full">
                     <TableHeadCell>Cliente</TableHeadCell>
+                    <TableHeadCell>Total</TableHeadCell>
                     <TableHeadCell>Direccion</TableHeadCell>
                     <TableHeadCell className="w-0"></TableHeadCell>
                 </TableHead>
                 <TableBody>
-                    {pedidos.map((pedido) => {
+                    {pedidos?.map((pedido) => {
                         return (<TableRow key={pedido.id} className=" border-b">
                             <TableCell>{pedido.nombreCliente}</TableCell>
+                            <TableCell>{pedido.total}</TableCell>
                             <TableCell className="">{pedido.direccion}</TableCell>
                             <TableCell className="flex gap-2">
                                     <Button color="light" onClick={() => handleEdit(pedido)}>
                                         <HiEye className="w-4 h-4 mx-0 md:mr-1" />
                                         <span className="hidden md:block">Ver</span></Button>
-                                    <Button color="green">
+                                    <Button color="green" onClick={()=>entregarPedido(pedido.id)}>
                                         <HiOutlineCheckCircle className="w-4 h-4 mx-0 md:mr-1" /><span className="hidden md:block"> Entregado</span>
                                     </Button>
-                                    <Button color="red" onClick={() => handleErase(pedido)}>
+                                    <Button color="red" onClick={() => cancelarPedido(pedido)}>
                                         <HiXCircle className="w-4 h-4 mx-0 md:mr-1" />
                                         <span className="hidden md:block"> Cancelar</span>
                                     </Button>
