@@ -13,7 +13,7 @@ export const usePedidos = () => {
         try {
             setFailedState(false);
             const response = await PedidoApi.create(pedido);
-            dispatch({ type: 'addPedido', payload: pedido });
+            dispatch({ type: 'addPedido', payload: response.data });
         } catch (error) {
             setFailedState(true);
         }
