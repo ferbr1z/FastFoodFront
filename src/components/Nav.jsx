@@ -35,7 +35,7 @@ export const Nav = () => {
         </Dropdown>
         <Navbar.Toggle />
       </div>
-      <Navbar.Collapse className="bg-gray-100 py-3 px-4 rounded-lg">
+      <Navbar.Collapse className="bg-gray-100 py-1.5 px-4 rounded-lg">
         <Navbar.Link href="#" active className="rounded-lg">
           Home
         </Navbar.Link>

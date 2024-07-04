@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Label, Radio, Select, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react"
+import { Button, Label, Radio, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react"
 import { useEffect, useState } from "react"
 import { Loading } from "../utils/Loading"
 import { H2 } from "../utils/headers/H2"
@@ -10,7 +10,7 @@ import { RemoveModal } from "../utils/Modals/EraseModal"
 import { usePedidos } from "../../hooks/usePedidos"
 
 
-export const PedidosList = () => {
+export const PedidosView = () => {
 
     const { page } = useParams();
     const { pedidos, getAllPedidos, getPedidoById, getPedidosEntregados, getPedidosCancelados, deletePedido, entregarPedido, cancelarPedido, loadedState, failedState, failedOnLoadState } = usePedidos();
@@ -72,7 +72,6 @@ export const PedidosList = () => {
 
     const handleEstadoChange = (estado) => {
         setFetchEstado(estado);
-        console.log(fetchEstado);
     }
 
     useEffect(() => {
@@ -125,31 +124,34 @@ export const PedidosList = () => {
     }
 
     const renderTable = () => (<>
-        <div className="drop-shadow-md rounded-md overflow-auto">
+        <div className="rounded-md overflow-auto">
             <Table className="bg-white" hoverable>
                 <TableHead className="w-full">
                     <TableHeadCell>Cliente</TableHeadCell>
                     <TableHeadCell>Total</TableHeadCell>
-                    <TableHeadCell>Direccion</TableHeadCell>
+                    <TableHeadCell className="hidden sm:table-cell">Direccion</TableHeadCell>
                     <TableHeadCell className="w-0"></TableHeadCell>
                 </TableHead>
                 <TableBody>
                     {pedidos?.map((pedido) => {
-                        return (<TableRow key={pedido.id} className=" border-b">
+                        return (<TableRow key={pedido.id} className="border-b last:border-none">
                             <TableCell>{pedido.nombreCliente}</TableCell>
                             <TableCell>{pedido.total}</TableCell>
-                            <TableCell className="">{pedido.direccion}</TableCell>
-                            <TableCell className="flex gap-2">
-                                    <Button color="light" onClick={() => handleEdit(pedido)}>
+                            <TableCell  className="hidden sm:table-cell">{pedido.direccion}</TableCell>
+                            <TableCell className="flex sm:gap-2">
+
+                                    <Button className="p-0 py-1" color="light" onClick={() => handleEdit(pedido)}>
                                         <HiEye className="w-4 h-4 mx-0 md:mr-1" />
                                         <span className="hidden md:block">Ver</span></Button>
-                                    <Button color="green" onClick={()=>entregarPedido(pedido.id)}>
+                                    
+                                    {fetchEstado==="pendientes" ?  (<><Button className="p-0 py-1" color="green" onClick={()=>entregarPedido(pedido.id)}>
                                         <HiOutlineCheckCircle className="w-4 h-4 mx-0 md:mr-1" /><span className="hidden md:block"> Entregado</span>
                                     </Button>
-                                    <Button color="red" onClick={() => cancelarPedido(pedido)}>
+                                    <Button className="p-0 py-1" color="red" onClick={() => cancelarPedido(pedido.id)}>
                                         <HiXCircle className="w-4 h-4 mx-0 md:mr-1" />
                                         <span className="hidden md:block"> Cancelar</span>
-                                    </Button>
+                                    </Button></>) : <></>}
+                                    
                             </TableCell>
                         </TableRow>
                         )
@@ -160,15 +162,12 @@ export const PedidosList = () => {
 
     return <>
         <><div className="flex flex-col items-center md:flex-row justify-center md:justify-between mb-3">
-
-            <Button className={`mb-3 md:order-2 md:mb-0 ${fetchEstado === "pendientes" ? "" : "hidden"}`} onClick={handleNew}>
-                <HiPlus className="mx-1 w-3 h-3" />
+            <Button className={`mb-3 md:order-2 md:mb-0 ${fetchEstado === "pendientes" ? "" : "invisible"}`} onClick={handleNew}>
+                <HiPlus className="mx-1" />
                 Nuevo pedido
             </Button>
 
             <fieldset className="flex flex-row gap-4">
-                <div className="text-gray-700 inline-flex items-center">
-                    <HiFilter className="w-4 h-4 mx-0" /><span className="hidden md:block">Filtros:</span></div>
                 <div className="flex items-center gap-2">
                     <Radio id="pendientes_filter" name="estado" onChange={() => handleEstadoChange("pendientes")} defaultChecked />
                     <Label htmlFor="pendientes_filter">Pendientes</Label>

@@ -34,6 +34,7 @@ export const usePedidos = () => {
             setLoadedState(false);
             setFailedState(false);
             const response = await PedidoApi.all(page);
+            console.log(response.data);
             dispatch({ type: 'getAllPedidos', payload: response.data });
             setLoadedState(true);
         } catch (error) {
@@ -77,6 +78,7 @@ export const usePedidos = () => {
 
     const cancelarPedido = async (pedidoId) => {
         try{
+            console.log(pedidoId)
             setFailedState(false);
             const response = await PedidoApi.cancelarPedido(pedidoId);
             dispatch({type: "cancelarPedido", payload: pedidoId});

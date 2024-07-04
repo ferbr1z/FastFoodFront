@@ -66,7 +66,7 @@ export const ProductosTable = () => {
                 </TableHead>
                 <TableBody>
                     {productos.map((producto) => {
-                        return (<TableRow key={producto.id} className="border-b">
+                        return (<TableRow key={producto.id} className="border-b last:border-none">
                             <TableCell>{producto.nombre}</TableCell>
                             <TableCell>{producto.precio}</TableCell>
                             <TableCell className="flex gap-2 w-25">

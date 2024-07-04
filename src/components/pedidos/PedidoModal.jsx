@@ -128,14 +128,14 @@ export const PedidoModal = ({ data, modal, setData, closeModal }) => {
                     {
                         data.pedidoDetalle.map((detalle) => {
                             return <TableRow className="border-b" key={detalle.producto.id}>
-                                <TableCell className="px-2 py-1 md:px-6 md:py-4">
+                                <TableCell className="px-0 md:px-2 py-1 md:px-6 md:py-4">
                                     <a className="hover:text-red-600 block p-3" title="Borrar de la lista" onClick={() => handleRemoveProducto(detalle.producto.id)} >
                                         <HiXCircle className="w-5 h-5 mx-0" />
                                     </a>
                                 </TableCell>
-                                <TableCell className="px-2 py-1 md:px-6 md:py-4">{detalle.producto.nombre}</TableCell>
-                                <TableCell className="px-2 py-1 md:px-6 md:py-4"> <TextInput type="number" value={detalle.cantidad} className="w-20 max-w-full text-center" onChange={(e) => handleProductoCantidadChange(e, detalle.producto)} /> </TableCell>
-                                <TableCell className="px-2 py-1 md:px-6 md:py-4">Gs.<b>{(detalle.producto.precio * detalle.cantidad)}</b></TableCell>
+                                <TableCell className="px-0 py-1 md:px-6 md:py-4">{detalle.producto.nombre}</TableCell>
+                                <TableCell className="px-auto py-1 md:px-6 md:py-4"> <TextInput type="number" value={detalle.cantidad} className="w-20 max-w-full text-center" onChange={(e) => handleProductoCantidadChange(e, detalle.producto)} /> </TableCell>
+                                <TableCell className="px-0 py-1 md:px-6 md:py-4">Gs.<b>{(detalle.producto.precio * detalle.cantidad)}</b></TableCell>
 
                             </TableRow>
                         })

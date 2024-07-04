@@ -49,6 +49,7 @@ export const reducerFunction = (state, action) => {
                 recordsPerPage: action.payload.recordsPerPage,
                 totalRecords: action.payload.totalRecords,
                 totalPages: action.payload.totalPages,
+                montoTotal: action.payload.montoTotal
             };
 
         case 'entregarPedido':
